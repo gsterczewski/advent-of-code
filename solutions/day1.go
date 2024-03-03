@@ -36,7 +36,7 @@ func extractNumFromString(str string) int {
 	return result
 }
 func SolutionDay1() int {
-	inputScanner := getInput("../inputs/day1-input.txt")
+	inputScanner := getInput("inputs/day1-input.txt")
 	sum := 0
 	for inputScanner.Scan() {
 		sum += extractNumFromString(inputScanner.Text())
