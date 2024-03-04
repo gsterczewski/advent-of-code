@@ -2,12 +2,12 @@ package solutions
 
 import (
 	"bufio"
-	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
 
-type scratchCard struct {
+type ScratchCard struct {
 	winningNumbers []int
 	playerNumbers  []int
 }
@@ -23,17 +23,17 @@ func mapStringsToNumbers(strs []string) []int {
 	}
 	return result
 }
-func createScratchCard(str string) scratchCard {
+func CreateScratchCard(str string) ScratchCard {
 	arr := strings.Split(str, ":")
 	values := strings.Split(arr[1], "|")
 
 	winningNumbers := mapStringsToNumbers(strings.Split(strings.Trim(values[0], " "), " "))
 	playerNumbers := mapStringsToNumbers(strings.Split(strings.Trim(values[1], " "), " "))
-	return scratchCard{winningNumbers, playerNumbers}
+	return ScratchCard{winningNumbers, playerNumbers}
 
 }
-func (sc scratchCard) calculateScore() int {
-	score := 0
+func (sc ScratchCard) CalculateHits() int {
+	hits := 0
 	winningMap := map[int]bool{}
 	for _, v := range sc.winningNumbers {
 		winningMap[v] = false
@@ -41,25 +41,25 @@ func (sc scratchCard) calculateScore() int {
 	for _, n := range sc.playerNumbers {
 		used, exist := winningMap[n]
 		if exist && !used {
-			if score == 0 {
-				score += 1
-			} else {
-				score *= 2
-			}
+			hits++
 		}
 		winningMap[n] = true
 	}
-
-	return score
+	return hits
 }
+func (sc ScratchCard) calculateScore() int {
+
+	hits := float64(sc.CalculateHits())
+	if hits == 0 {
+		return 0
+	}
+	return int(math.Pow(2, hits-1))
+}
+
 func SolutionDay4A(inputScanner *bufio.Scanner) int {
 	result := 0
 	for inputScanner.Scan() {
-		sc := createScratchCard(inputScanner.Text())
-		fmt.Printf("winning numbers: %v ", sc.winningNumbers)
-		fmt.Printf("player numbers: %v ", sc.playerNumbers)
-		fmt.Printf("score: %v\n", sc.calculateScore())
-
+		sc := CreateScratchCard(inputScanner.Text())
 		result += sc.calculateScore()
 	}
 	return result
