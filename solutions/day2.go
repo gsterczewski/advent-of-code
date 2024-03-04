@@ -1,7 +1,7 @@
 package solutions
 
 import (
-	"advent-of-code/utils"
+	"bufio"
 	"strconv"
 	"strings"
 )
@@ -61,12 +61,10 @@ func createGame(str string) Game {
 	return game
 }
 
-func SolutionDay2() int {
-
+func SolutionDay2A(inputScanner *bufio.Scanner) int {
 	maxRed := 12
 	maxGreen := 13
 	maxBlue := 14
-	inputScanner := utils.GetInput("inputs/day2-input.txt")
 	result := 0
 	for inputScanner.Scan() {
 		game := createGame(inputScanner.Text())
@@ -82,8 +80,7 @@ func SolutionDay2() int {
 	}
 	return result
 }
-func SolutionDay2B() int {
-	inputScanner := utils.GetInput("inputs/day2-input.txt")
+func SolutionDay2B(inputScanner *bufio.Scanner) int {
 	result := 0
 	for inputScanner.Scan() {
 		game := createGame(inputScanner.Text())
