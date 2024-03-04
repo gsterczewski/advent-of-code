@@ -8,7 +8,8 @@ import (
 )
 
 func GetInput(inputPath string) *bufio.Scanner {
-	wd, _ := os.Getwd()
+
+	wd := "C:/Users/GS/Programowanie/Advent-Of-Code/inputs"
 	fullPath := path.Join(wd, inputPath)
 	file, err := os.Open(fullPath)
 	if err != nil {
