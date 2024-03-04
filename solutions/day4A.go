@@ -3,6 +3,7 @@ package solutions
 import (
 	"bufio"
 	"math"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -10,6 +11,7 @@ import (
 type ScratchCard struct {
 	winningNumbers []int
 	playerNumbers  []int
+	cardNumber     int
 }
 
 func mapStringsToNumbers(strs []string) []int {
@@ -25,11 +27,13 @@ func mapStringsToNumbers(strs []string) []int {
 }
 func CreateScratchCard(str string) ScratchCard {
 	arr := strings.Split(str, ":")
+	regex := regexp.MustCompile(`\d`)
+	matched := regex.FindAllString(arr[0], -1)
+	cardNumber, _ := strconv.Atoi(strings.Join(matched, ""))
 	values := strings.Split(arr[1], "|")
-
 	winningNumbers := mapStringsToNumbers(strings.Split(strings.Trim(values[0], " "), " "))
 	playerNumbers := mapStringsToNumbers(strings.Split(strings.Trim(values[1], " "), " "))
-	return ScratchCard{winningNumbers, playerNumbers}
+	return ScratchCard{winningNumbers, playerNumbers, cardNumber}
 
 }
 func (sc ScratchCard) CalculateHits() int {
