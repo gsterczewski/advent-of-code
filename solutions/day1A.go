@@ -21,8 +21,3 @@ func SolutionDay1A(is *bufio.Scanner) int {
 	}
 	return sum
 }
-
-func SolutionDay1B(is *bufio.Scanner) int {
-	return 0
-
-}
